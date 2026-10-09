@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accenture Cognitive Assessment Arena | 3-in-1 Gamified Practice</title>
+  <meta name="description" content="Prepare and master the Accenture Gamified Cognitive Assessment with authentic practice simulations of Bubble Sort, Rocket Launch, and Lock & Key.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Application Header -->
+  <header class="app-header">
+    <div class="brand" onclick="window.app && window.app.quitToDashboard()">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="brand-info">
+        <h1>Accenture Cognitive Arena</h1>
+        <span>Gamified Assessment Simulator</span>
+      </div>
+    </div>
+
+    <!-- Status Bar Counters -->
+    <div class="header-stats">
+      <div class="stat-chip time" title="Session Timer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span id="timer_display">15:00</span>
+      </div>
+
+      <div class="stat-chip score" title="Assessment Points">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <span id="score_display">0</span>
+      </div>
+
+      <div class="stat-chip streak" title="Current Accuracy Streak">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        <span id="streak_display">0x</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <button class="btn-icon" id="btn_toggle_audio" title="Toggle Sound FX">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="app-main">
+
+    <!-- DASHBOARD VIEW -->
+    <div class="dashboard-view" id="dashboard_view">
+      
+      <!-- Hero Banner -->
+      <section class="hero-banner">
+        <div class="hero-content">
+          <div class="badge-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+            Accenture Campus & ASE / FSE Hiring Pattern
+          </div>
+          <h2>Master the Cognitive Mini-Games</h2>
+          <p>
+            Accenture's modern hiring assessment tests rapid mental arithmetic, spatial conduit rotation, and working memory. Practice all 3 authentic games under real exam constraints with accurate timing and diagnostics.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary" id="btn_start_full_sim">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Start Full Exam Simulation (15 Min)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Games Grid Section -->
+      <section class="practice-sections">
+        <div class="section-title">
+          <h3>Individual Practice Drills</h3>
+          <span style="color: var(--text-dim); font-size: 0.9rem;">Target specific cognitive domains</span>
+        </div>
+
+        <div class="game-cards-grid">
+          
+          <!-- Card 1: Bubble Sort -->
+          <div class="game-card card-bubble" id="btn_practice_bubble">
+            <div>
+              <div class="card-top">
+                <div class="card-icon">🫧</div>
+                <span class="card-tag">Numerical Agility</span>
+              </div>
+              <div class="card-body">
+                <h4>Bubble Sort</h4>
+                <p>Solve arithmetic equations in floating bubbles and pop them in strict ascending order from lowest to highest value.</p>
+              </div>
+            </div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <span class="meta-label">Focus</span>
+                <span class="meta-val">Quick-Fire Math</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Rounds</span>
+                <span class="meta-val">5 Stages</span>
+              </div>
+              <button class="btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;">Launch Drill</button>
+            </div>
+          </div>
+
+          <!-- Card 2: Rocket Launch -->
+          <div class="game-card card-rocket" id="btn_practice_rocket">
+            <div>
+              <div class="card-top">
+                <div class="card-icon">🚀</div>
+                <span class="card-tag">Spatial Rotation</span>
+              </div>
+              <div class="card-body">
+                <h4>Rocket Launch</h4>
+                <p>Rotate conduit pipes on 3x3 to 5x5 grids to route uninterrupted power from the energy core into the rocket launchpad.</p>
+              </div>
+            </div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <span class="meta-label">Focus</span>
+                <span class="meta-val">Path Planning</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Rounds</span>
+                <span class="meta-val">4 Circuits</span>
+              </div>
+              <button class="btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;">Launch Drill</button>
+            </div>
+          </div>
+
+          <!-- Card 3: Lock & Key -->
+          <div class="game-card card-maze" id="btn_practice_maze">
+            <div>
+              <div class="card-top">
+                <div class="card-icon">🔑</div>
+                <span class="card-tag">Working Memory</span>
+              </div>
+              <div class="card-body">
+                <h4>Lock & Key</h4>
+                <p>Memorize maze barriers during a 3-second preview before they cloak. Collect the Golden Key and navigate safely to the exit door.</p>
+              </div>
+            </div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <span class="meta-label">Focus</span>
+                <span class="meta-val">Memory Maze</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Rounds</span>
+                <span class="meta-val">4 Mazes</span>
+              </div>
+              <button class="btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;">Launch Drill</button>
+            </div>
+          </div>
+
+          <!-- Card 4: Official Accenture Arrow Path Puzzle (YouTube Short Feature) -->
+          <div class="game-card card-arrow" id="btn_practice_arrow" style="border-color: rgba(250, 204, 21, 0.4);">
+            <div>
+              <div class="card-top">
+                <div class="card-icon" style="background: rgba(250, 204, 21, 0.15); color: #facc15; border-color: rgba(250, 204, 21, 0.4);">🧭</div>
+                <span class="card-tag" style="background: rgba(250, 204, 21, 0.15); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.3);">Official 2026 Format</span>
+              </div>
+              <div class="card-body">
+                <h4>Arrow Path Puzzle</h4>
+                <p>The authentic puzzle from the Accenture exam: Select tiles with yellow outline, use <strong>Rotate [🔄]</strong> and <strong>Flip [⇄]</strong> to align arrows from entrance to target!</p>
+              </div>
+            </div>
+            <div class="card-meta">
+              <div class="meta-item">
+                <span class="meta-label">Focus</span>
+                <span class="meta-val">Rotate / Flip / Submit</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Rounds</span>
+                <span class="meta-val">4 Levels</span>
+              </div>
+              <button class="btn-primary" style="padding: 6px 14px; font-size: 0.8rem; background: linear-gradient(135deg, #facc15, #eab308); color: #000;">Launch Drill</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- GAME STAGE VIEW -->
+    <div class="game-stage-view" id="game_stage_view">
+      
+      <!-- Stage Subheader Bar -->
+      <div class="game-subbar">
+        <div class="game-title-group">
+          <h3 id="current_game_title">Game Title</h3>
+          <p id="current_game_desc">Game description and active instructions</p>
+        </div>
+        <div class="round-progress">
+          <span class="progress-pill" id="round_progress_pill">Section 1/3</span>
+          <button class="btn-danger" id="btn_quit_stage">Exit Drill</button>
+        </div>
+      </div>
+
+      <!-- Active Arena (Game mounts here) -->
+      <div class="stage-arena" id="stage_arena">
+        <!-- Bubbles / Rocket Grid / Maze Grid injected dynamically -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- DIAGNOSTICS / RESULTS MODAL -->
+  <div class="modal-backdrop" id="results_modal">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h3>Assessment Performance Report</h3>
+        <p>Comprehensive evaluation based on Accenture cognitive scoring percentiles</p>
+      </div>
+
+      <div class="score-hero-card">
+        <div class="hero-score-stat">
+          <span class="val" id="diag_final_score">2,450</span>
+          <span class="label">Total Score</span>
+        </div>
+        <div class="percentile-badge" id="diag_percentile">Top 6% (94th Percentile)</div>
+        <div class="hero-score-stat">
+          <span class="val" id="diag_accuracy" style="color: var(--accent-emerald);">92%</span>
+          <span class="label">Overall Accuracy</span>
+        </div>
+        <div class="hero-score-stat">
+          <span class="val" id="diag_best_streak" style="color: var(--accent-amber);">14x</span>
+          <span class="label">Peak Streak</span>
+        </div>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="breakdown-grid">
+        <div class="breakdown-card">
+          <h5>Quick-Fire Math (Bubble Sort)</h5>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Numerical Speed & Mental Arithmetic</span>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="diag_math_bar" style="width: 88%;"></div>
+          </div>
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan); align-self: flex-end;" id="diag_math_score">88%</span>
+        </div>
+
+        <div class="breakdown-card">
+          <h5>Conduit Routing (Rocket Launch)</h5>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Spatial Visualization & Path Planning</span>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="diag_spatial_bar" style="width: 95%;"></div>
+          </div>
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-purple); align-self: flex-end;" id="diag_spatial_score">95%</span>
+        </div>
+
+        <div class="breakdown-card">
+          <h5>Memory Maze (Lock & Key)</h5>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">Spatial Working Memory & Error Correction</span>
+          <div class="metric-bar-bg">
+            <div class="metric-bar-fill" id="diag_memory_bar" style="width: 90%;"></div>
+          </div>
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-emerald); align-self: flex-end;" id="diag_memory_score">90%</span>
+        </div>
+      </div>
+
+      <!-- Actionable Advice -->
+      <div class="recommendations-box">
+        <h6>Accenture Assessment Recommendation:</h6>
+        <p id="diag_recommendation">
+          Excellent balance between speed and precision. Focus on identifying extreme values during Quick-Fire Math to save additional seconds.
+        </p>
+      </div>
+
+      <!-- Modal Action Buttons -->
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btn_modal_close">Back to Dashboard</button>
+        <button class="btn-primary" id="btn_modal_retry">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Retake Simulation
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="audio.js"></script>
+  <script src="bubbleGame.js"></script>
+  <script src="rocketGame.js"></script>
+  <script src="mazeGame.js"></script>
+  <script src="arrowPathGame.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
