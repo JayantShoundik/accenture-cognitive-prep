@@ -221,15 +221,33 @@ class ArrowPathGame {
     const arena = document.createElement('div');
     arena.className = 'arrow-arena-container';
 
-    // Game instructions & header
-    const topInstruction = document.createElement('div');
-    topInstruction.className = 'arrow-header-info';
-    topInstruction.innerHTML = `
-      <div class="arrow-mode-pill">
-        <span class="live-dot"></span> ACCENTURE PUZZLE TEST • LEVEL ${this.currentLevel} OF ${this.totalLevels}
+    // Accenture Watermark
+    const watermark = document.createElement('div');
+    watermark.className = 'accenture-exam-watermark';
+    watermark.textContent = 'accenture';
+    arena.appendChild(watermark);
+
+    // Cyan Instruction Banner from Photo 2, 3, 4
+    this.instructions = [
+      "Tap/click on a tile to select it.",
+      "Tap/click ⇄ to change the direction of route.",
+      "Please note that you can use the ⇄ button to change the direction of the arrows for all possible paths entering and exiting the tile."
+    ];
+    if (this.instructionSlide === undefined) this.instructionSlide = 0;
+
+    const instructionBox = document.createElement('div');
+    instructionBox.className = 'accenture-instruction-banner';
+    instructionBox.innerHTML = `
+      <button class="banner-arrow-btn" id="arrow_banner_prev">‹</button>
+      <div class="banner-text-content">
+        <span class="banner-message" id="arrow_banner_msg">${this.instructions[this.instructionSlide]}</span>
+        <div class="banner-dots-track" id="arrow_banner_dots">
+          ${this.instructions.map((_, i) => `<span class="banner-dot ${i === this.instructionSlide ? 'active' : ''}"></span>`).join('')}
+        </div>
       </div>
-      <p class="arrow-subtext">Select any tile and use <strong>Rotate [🔄]</strong> or <strong>Flip [⇄]</strong> to align arrow directions from Start to Target.</p>
+      <button class="banner-arrow-btn" id="arrow_banner_next">›</button>
     `;
+    arena.appendChild(instructionBox);
 
     // Puzzle Board Container
     const boardWrapper = document.createElement('div');
@@ -295,8 +313,8 @@ class ArrowPathGame {
     boardWrapper.appendChild(gridEl);
     boardWrapper.appendChild(endMarker);
 
-    // Bottom Action Controls matching the YouTube Short UI:
-    // [ ⏱️ 3:09 ]  [ 🔄 Rotate ]  [ ⇄ Flip ]  [ ✓ Submit ]
+    // Bottom Action Controls matching Photo 2, 3, 4:
+    // [ ⏱️ 4:00 ]  [ 🔄 ]  [ ⇄ ]  [ ✓ ]
     const controlsBar = document.createElement('div');
     controlsBar.className = 'arrow-controls-bar';
     controlsBar.innerHTML = `
@@ -305,38 +323,56 @@ class ArrowPathGame {
           <circle cx="12" cy="12" r="10"/>
           <polyline points="12 6 12 12 16 14"/>
         </svg>
-        <span id="arrow_timer_badge">3:09</span>
+        <span id="arrow_timer_badge">4:00</span>
       </div>
 
       <button class="arrow-action-btn btn-rotate" id="btn_arrow_rotate" title="Rotate selected tile 90° clockwise (Press R)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
         </svg>
-        <span>Rotate [R]</span>
       </button>
 
-      <button class="arrow-action-btn btn-flip" id="btn_arrow_flip" title="Flip / Mirror selected tile horizontally (Press F)">
+      <button class="arrow-action-btn btn-flip" id="btn_arrow_flip" title="Change direction of route / Invert arrows (Press F)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="16 3 21 8 16 13"/><line x1="21" y1="8" x2="9" y2="8"/>
           <polyline points="8 21 3 16 8 11"/><line x1="3" y1="16" x2="15" y2="16"/>
         </svg>
-        <span>Flip [F]</span>
       </button>
 
-      <button class="arrow-action-btn btn-submit" id="btn_arrow_submit" title="Check & Submit Path (Press Enter)">
+      <button class="arrow-action-btn btn-submit" id="btn_arrow_submit" title="Submit Route (Press Enter)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>Submit [✓]</span>
       </button>
     `;
 
-    arena.appendChild(topInstruction);
+    const sectionFooter = document.createElement('div');
+    sectionFooter.className = 'accenture-exam-footer';
+    sectionFooter.style.justifyContent = 'center';
+    sectionFooter.innerHTML = `<span style="font-size: 0.9rem; color: #94a3b8; font-weight: 600;">Section 2 of 2</span>`;
+
     arena.appendChild(boardWrapper);
     arena.appendChild(controlsBar);
+    arena.appendChild(sectionFooter);
     this.container.appendChild(arena);
 
-    // Event listeners for action buttons
+    // Banner arrow listeners
+    document.getElementById('arrow_banner_prev').addEventListener('click', () => {
+      this.instructionSlide = (this.instructionSlide - 1 + this.instructions.length) % this.instructions.length;
+      document.getElementById('arrow_banner_msg').textContent = this.instructions[this.instructionSlide];
+      document.getElementById('arrow_banner_dots').innerHTML = this.instructions.map((_, i) =>
+        `<span class="banner-dot ${i === this.instructionSlide ? 'active' : ''}"></span>`
+      ).join('');
+    });
+    document.getElementById('arrow_banner_next').addEventListener('click', () => {
+      this.instructionSlide = (this.instructionSlide + 1) % this.instructions.length;
+      document.getElementById('arrow_banner_msg').textContent = this.instructions[this.instructionSlide];
+      document.getElementById('arrow_banner_dots').innerHTML = this.instructions.map((_, i) =>
+        `<span class="banner-dot ${i === this.instructionSlide ? 'active' : ''}"></span>`
+      ).join('');
+    });
+
+    // Action button listeners
     document.getElementById('btn_arrow_rotate').addEventListener('click', () => this.rotateSelected());
     document.getElementById('btn_arrow_flip').addEventListener('click', () => this.flipSelected());
     document.getElementById('btn_arrow_submit').addEventListener('click', () => this.submitPath());
